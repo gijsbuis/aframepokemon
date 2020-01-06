@@ -51,7 +51,6 @@ window.onload = () => {
 
     moveLocation();
   }
-  
 
   function moveLocation() {
     setTimeout(function () {
@@ -85,6 +84,7 @@ window.onload = () => {
     getPokemonTwo(randomPokemonNumberTwo);
     getPokemonThree(randomPokemonNumberThree);
     getPokemonFour(randomPokemonNumberFour);
+    fightText.setAttribute('visible', 'true');
     startBattle();
   }
 
@@ -144,6 +144,53 @@ window.onload = () => {
     for (var i = 0; i < wildPokemons.length; i++) {
       wildPokemons[i].addEventListener('click', function(event) {
         console.log(this.id);
+        if (this.id == "js--pokemon-picture-one") {
+          pokemonPictureOne.setAttribute('position', '0 2 -34');
+          pokemonTextOne.setAttribute('position', '0 0.5 0')
+          pokemonPictureTwo.setAttribute('visible', 'false');
+          pokemonTextTwo.setAttribute('visible', 'false');
+          pokemonPictureTwo.setAttribute('position', '0 0 0');
+          pokemonPictureThree.setAttribute('visible', 'false');
+          pokemonTextThree.setAttribute('visible', 'false');
+          pokemonPictureThree.setAttribute('position', '0 0 0');
+          pokemonPictureFour.setAttribute('visible', 'false');
+          pokemonTextFour.setAttribute('visible', 'false');
+          pokemonPictureFour.setAttribute('position', '0 0 0');
+        } else if (this.id == "js--pokemon-picture-two") {
+          pokemonPictureTwo.setAttribute('position', '0 2 -34');
+          pokemonPictureOne.setAttribute('visible', 'false');
+          pokemonTextOne.setAttribute('visible', 'false');
+          pokemonPictureOne.setAttribute('position', '0 0 0');
+          pokemonPictureThree.setAttribute('visible', 'false');
+          pokemonTextThree.setAttribute('visible', 'false');
+          pokemonPictureThree.setAttribute('position', '0 0 0');
+          pokemonPictureFour.setAttribute('visible', 'false');
+          pokemonTextFour.setAttribute('visible', 'false');
+          pokemonPictureFour.setAttribute('position', '0 0 0');
+        } else if (this.id == "js--pokemon-picture-three") {
+          pokemonPictureThree.setAttribute('position', '0 2 -34');
+          pokemonPictureOne.setAttribute('visible', 'false');
+          pokemonTextOne.setAttribute('visible', 'false');
+          pokemonPictureOne.setAttribute('position', '0 0 0');
+          pokemonPictureTwo.setAttribute('visible', 'false');
+          pokemonTextTwo.setAttribute('visible', 'false');
+          pokemonPictureTwo.setAttribute('position', '0 0 0');
+          pokemonPictureFour.setAttribute('visible', 'false');
+          pokemonTextFour.setAttribute('visible', 'false');
+          pokemonPictureFour.setAttribute('position', '0 0 0');
+        } else if (this.id == "js--pokemon-picture-four") {
+          pokemonPictureFour.setAttribute('position', '0 2 -34');
+          pokemonPictureOne.setAttribute('visible', 'false');
+          pokemonTextOne.setAttribute('visible', 'false');
+          pokemonPictureOne.setAttribute('position', '0 0 0');
+          pokemonPictureTwo.setAttribute('visible', 'false');
+          pokemonTextTwo.setAttribute('visible', 'false');
+          pokemonPictureTwo.setAttribute('position', '0 0 0');
+          pokemonPictureThree.setAttribute('visible', 'false');
+          pokemonTextThree.setAttribute('visible', 'false');
+          pokemonPictureThree.setAttribute('position', '0 0 0');
+        }
+        fightText.setAttribute('value', 'Fight!');
       })
     }
   }
