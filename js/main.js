@@ -196,26 +196,35 @@ window.onload = () => {
           pokemonPictureThree.setAttribute('position', '0 0 50');
         }
         fightText.setAttribute('value', 'Fight!');
-        setAttackMoves();
+        getAttackMoves();
       })
     }
   }
 
-  function setAttackMoves() {
-    attack1.setAttribute('value', getAttackOne());
-  }
-
-  function getAttackOne() {
-    let attackMove = null;
+  function getAttackMoves() {
+    let attackMove;
     const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
     fetch(BASE_URL + starterPokemonlowercase)
     .then( (data) => {
       return data.json();
     })
     .then( (response) => {
-      attackMove = response.moves[5].move.name;
-      console.log(attackMove);
+      attackMoveOne = response.moves[5].move.name;
+      attackMoveTwo = response.moves[10].move.name;
+      attackMoveThree = response.moves[15].move.name;
+      attackMoveFour = response.moves[20].move.name;
+      
+      attack1.setAttribute('visible', 'true');
+      attack1.setAttribute('value', attackMoveOne);
+
+      attack2.setAttribute('visible', 'true');
+      attack2.setAttribute('value', attackMoveTwo);
+
+      attack3.setAttribute('visible', 'true');
+      attack3.setAttribute('value', attackMoveThree);
+
+      attack4.setAttribute('visible', 'true');
+      attack4.setAttribute('value', attackMoveFour);
     });
-    return attackMove;
   }
 }
