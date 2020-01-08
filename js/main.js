@@ -1,8 +1,7 @@
 window.onload = () => {
   const camera = document.getElementById('js--camera');
 
-  const pokemons = document.getElementsByClassName('js--pokemon');
-  const animationStarterPokemon = document.getElementsByClassName('js--animate-beginner-pokemon')
+  const starterPokemons = document.getElementsByClassName('js--pokemon');
   const bulbasaur = document.getElementById('js--bulbasaur');
   const charmander = document.getElementById('js--charmander');
   const squirtle = document.getElementById('js--squirtle');
@@ -25,10 +24,11 @@ window.onload = () => {
 
   let starterPokemon = null;
   let starterPokemonlowercase = null;
+  var starterPokemonsArrayIndex = null;
 
   function addListeners() {
-    for (var i = 0; i < pokemons.length; i++) {
-      pokemons[i].addEventListener('click', function(event) {
+    for (var i = 0; i < starterPokemons.length; i++) {
+      starterPokemons[i].addEventListener('click', function(event) {
         if (starterPokemon == null) {
           let thisID = this.id;
           let thisStripped = thisID.split("--");
@@ -44,13 +44,16 @@ window.onload = () => {
 
   function removeOtherStarters() {
     if (starterPokemon == "Bulbasaur") {
+      starterPokemonsArrayIndex = 0;
       charmander.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
       bulbasaur.setAttribute('animation', 'property: position; from: -1 0 0; to: 0 0 0; dur: 1000');
     } else if (starterPokemon == "Charmander") {
+        starterPokemonsArrayIndex = 1;
       bulbasaur.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
     } else if (starterPokemon == "Squirtle") {
+      starterPokemonsArrayIndex = 2;
       bulbasaur.setAttribute('visible', 'false');
       charmander.setAttribute('visible', 'false');
       squirtle.setAttribute('animation', 'property: position; from: 1 0 0; to: 0 0 0; dur: 1000');
@@ -61,7 +64,7 @@ window.onload = () => {
   function moveLocation() {
     setTimeout(function () {
       let att = document.createAttribute('animation');
-      att.value = 'property: position; easing: linear; dur: 3000; to: 0 3 -30';
+      att.value = 'property: position; easing: linear; dur: 3000; to: 0 3 -29';
       camera.setAttribute('animation', att.value);
     }, 2000);
 
@@ -70,8 +73,10 @@ window.onload = () => {
       bulbasaur.setAttribute('visible', 'false');
       charmander.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
+      starterPokemons[starterPokemonsArrayIndex].setAttribute('visible', 'true');
+      starterPokemons[starterPokemonsArrayIndex].setAttribute('animation', 'property: position; from: 0 0 0; to: 0 0 -30; dur: 2000');
+      starterPokemons[starterPokemonsArrayIndex].setAttribute('alpha-test', '0.1');
     }, 3000);
-
     setTimeout(function () {
       setRandomPokemon();
     }, 2000);
