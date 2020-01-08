@@ -2,6 +2,7 @@ window.onload = () => {
   const camera = document.getElementById('js--camera');
 
   const pokemons = document.getElementsByClassName('js--pokemon');
+  const animationStarterPokemon = document.getElementsByClassName('js--animate-beginner-pokemon')
   const bulbasaur = document.getElementById('js--bulbasaur');
   const charmander = document.getElementById('js--charmander');
   const squirtle = document.getElementById('js--squirtle');
@@ -45,14 +46,14 @@ window.onload = () => {
     if (starterPokemon == "Bulbasaur") {
       charmander.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
-      bulbasaur.setAttribute('position', '0 0 0');
+      bulbasaur.setAttribute('animation', 'property: position; from: -1 0 0; to: 0 0 0; dur: 1000');
     } else if (starterPokemon == "Charmander") {
       bulbasaur.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
     } else if (starterPokemon == "Squirtle") {
       bulbasaur.setAttribute('visible', 'false');
       charmander.setAttribute('visible', 'false');
-      squirtle.setAttribute('position', '0 0 0');
+      squirtle.setAttribute('animation', 'property: position; from: 1 0 0; to: 0 0 0; dur: 1000');
     }
     moveLocation();
   }
@@ -213,7 +214,7 @@ window.onload = () => {
       attackMoveTwo = response.moves[10].move.name;
       attackMoveThree = response.moves[15].move.name;
       attackMoveFour = response.moves[20].move.name;
-      
+
       attack1.setAttribute('visible', 'true');
       attack1.setAttribute('value', attackMoveOne);
 
