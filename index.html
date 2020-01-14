@@ -35,34 +35,40 @@
     </a-entity>
 
     <a-entity id="randomPokemons" position="0 2 -34">
-      <a-text id="fightText" value="Choose which Pokemon you want to fight by looking at them!" visible="false" position="0 1 0" align="center"></a-text>
-      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-one" position="1 0 0" src="img/pokemon-logo.png" visible="false">
+      <a-text id="fightText" value="Choose which Pokemon you want to fight by looking at them!" visible="false" position="0 1.5 0" align="center"></a-text>
+      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-one" position="-3 0 0" src="img/pokemon-logo.png" visible="false">
         <a-text id="js--pokemon-text-one" color="white" position="0 0.6 0" value="pokemon-name" align="center"></a-text>
       </a-image>
 
-      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-two" position="3 0 0" src="img/pokemon-logo.png" visible="false">
+      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-two" position="-1 0 0" src="img/pokemon-logo.png" visible="false">
         <a-text id="js--pokemon-text-two" color="white" position="0 0.6 0" value="pokemon-name" align="center"></a-text>
       </a-image>
 
-      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-three" position="-1 0 0" src="img/pokemon-logo.png" visible="false">
+      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-three" position="1 0 0" src="img/pokemon-logo.png" visible="false">
         <a-text id="js--pokemon-text-three" color="white" position="0 0.6 0" value="pokemon-name" align="center"></a-text>
       </a-image>
 
-      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-four" position="-3 0 0" src="img/pokemon-logo.png" visible="false">
+      <a-image class="js--wildPokemon clickable" id="js--pokemon-picture-four" position="3 0 0" src="img/pokemon-logo.png" visible="false">
         <a-text id="js--pokemon-text-four" color="white" position="0 0.6 0" value="pokemon-name" align="center"></a-text>
       </a-image>
 
       <a-entity id="js--attack-moves-player">
-        <a-text class="clickable" id="js--attack1" value="move" position="-1 0 2" visible="false" align="center"></a-text>
-        <a-text class="clickable" id="js--attack2" value="move" position="-1 -0.5 2" visible="false" align="center"></a-text>
-        <a-text class="clickable" id="js--attack3" value="move" position="1 0 2" visible="false" align="center"></a-text>
-        <a-text class="clickable" id="js--attack4" value="move" position="1 -0.5 2" visible="false" align="center"></a-text>
+        <a-plane class="clickable" id="js--attack1-plane" visible="false"  position="-1 0 2" width="1.75" height="0.5" color="#567D18">
+          <a-text id="js--attack1" value="move" align="center"></a-text>
+        </a-plane>
+        <a-plane class="clickable" id="js--attack2-plane" visible="false"  position="1 0 2" width="1.75" height="0.5" color="#567D18">
+          <a-text class="clickable" id="js--attack2" value="move" visible="false" align="center"></a-text>
+        </a-plane>
+        <a-plane class="clickable" id="js--attack3-plane" visible="false"  position="1 -1 2" width="1.75" height="0.5" color="#567D18">
+          <a-text class="clickable" id="js--attack3" value="move" visible="false" align="center"></a-text>
+        </a-plane>
+        <a-plane class="clickable" id="js--attack4-plane" visible="false"  position="-1 -1 2" width="1.75" height="0.5" color="#567D18">
+          <a-text class="clickable" id="js--attack4" value="move" visible="false" align="center"></a-text>
+        </a-plane>
       </a-entity>
     </a-entity>
 
     <a-sky color="lightblue"></a-sky>
-
-    <!-- <a-entity environment="preset: tron"></a-entity> -->
   </a-scene>
 </body>
 </html>

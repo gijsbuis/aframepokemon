@@ -21,10 +21,19 @@ window.onload = () => {
   const attack2 = document.getElementById('js--attack2');
   const attack3 = document.getElementById('js--attack3');
   const attack4 = document.getElementById('js--attack4');
+  const attack1Plane = document.getElementById('js--attack1-plane');
+  const attack2Plane = document.getElementById('js--attack2-plane');
+  const attack3Plane = document.getElementById('js--attack3-plane');
+  const attack4Plane = document.getElementById('js--attack4-plane');
 
   let starterPokemon = null;
   let starterPokemonlowercase = null;
   var starterPokemonsArrayIndex = null;
+  var speed = null;
+  var speedRandomOne = null;
+  var speedRandomTwo = null;
+  var speedRandomThree = null;
+  var speedRandomFour = null;
 
   function addListeners() {
     for (var i = 0; i < starterPokemons.length; i++) {
@@ -49,7 +58,7 @@ window.onload = () => {
       squirtle.setAttribute('visible', 'false');
       bulbasaur.setAttribute('animation', 'property: position; from: -1 0 0; to: 0 0 0; dur: 1000');
     } else if (starterPokemon == "Charmander") {
-        starterPokemonsArrayIndex = 1;
+      starterPokemonsArrayIndex = 1;
       bulbasaur.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
     } else if (starterPokemon == "Squirtle") {
@@ -74,7 +83,7 @@ window.onload = () => {
       charmander.setAttribute('visible', 'false');
       squirtle.setAttribute('visible', 'false');
       starterPokemons[starterPokemonsArrayIndex].setAttribute('visible', 'true');
-      starterPokemons[starterPokemonsArrayIndex].setAttribute('animation', 'property: position; from: 0 0 0; to: 0 0 -30; dur: 2000');
+      starterPokemons[starterPokemonsArrayIndex].setAttribute('animation', 'property: position; from: 0 0 0; to: -3 -0.25 -29; dur: 2000');
       starterPokemons[starterPokemonsArrayIndex].setAttribute('alpha-test', '0.1');
     }, 3000);
     setTimeout(function () {
@@ -109,6 +118,7 @@ window.onload = () => {
       pokemonPictureOne.setAttribute('src', response.sprites.front_shiny);
       pokemonPictureOne.setAttribute('visible', 'true');
       pokemonTextOne.setAttribute('value', response.name);
+      speedRandomOne = response.stats[0].base_stat;
     });
   }
 
@@ -122,6 +132,7 @@ window.onload = () => {
       pokemonPictureTwo.setAttribute('src', response.sprites.front_default);
       pokemonPictureTwo.setAttribute('visible', 'true');
       pokemonTextTwo.setAttribute('value', response.name);
+      speedRandomTwo = response.stats[0].base_stat;
     });
   }
 
@@ -135,6 +146,7 @@ window.onload = () => {
       pokemonPictureThree.setAttribute('src', response.sprites.front_default);
       pokemonPictureThree.setAttribute('visible', 'true');
       pokemonTextThree.setAttribute('value', response.name);
+      speedRandomThree = response.stats[0].base_stat;
     });
   }
 
@@ -148,6 +160,7 @@ window.onload = () => {
       pokemonPictureFour.setAttribute('src', response.sprites.front_default);
       pokemonPictureFour.setAttribute('visible', 'true');
       pokemonTextFour.setAttribute('value', response.name);
+      speedRandomFour = response.stats[0].base_stat;
     });
   }
 
@@ -156,8 +169,8 @@ window.onload = () => {
       wildPokemons[i].addEventListener('click', function(event) {
         console.log(this.id);
         if (this.id == "js--pokemon-picture-one") {
-          pokemonPictureOne.setAttribute('position', '0 0 0');
-          pokemonTextOne.setAttribute('position', '0 0.5 0')
+          pokemonPictureOne.setAttribute('animation', 'property: position; from: -3 0 0; to: 0 0.5 0; dur: 1000');
+          pokemonTextOne.setAttribute('visible', 'false');
           pokemonPictureTwo.setAttribute('visible', 'false');
           pokemonTextTwo.setAttribute('visible', 'false');
           pokemonPictureTwo.setAttribute('position', '0 0 50');
@@ -167,6 +180,7 @@ window.onload = () => {
           pokemonPictureFour.setAttribute('visible', 'false');
           pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureFour.setAttribute('position', '0 0 50');
+          speed = speedRandomOne;
         } else if (this.id == "js--pokemon-picture-two") {
           pokemonPictureTwo.setAttribute('position', '0 0 0');
           pokemonPictureOne.setAttribute('visible', 'false');
@@ -178,6 +192,7 @@ window.onload = () => {
           pokemonPictureFour.setAttribute('visible', 'false');
           pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureFour.setAttribute('position', '0 0 50');
+          speed = speedRandomTwo;
         } else if (this.id == "js--pokemon-picture-three") {
           pokemonPictureThree.setAttribute('position', '0 0 0');
           pokemonPictureOne.setAttribute('visible', 'false');
@@ -189,6 +204,7 @@ window.onload = () => {
           pokemonPictureFour.setAttribute('visible', 'false');
           pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureFour.setAttribute('position', '0 0 50');
+          speed = speedRandomThree;
         } else if (this.id == "js--pokemon-picture-four") {
           pokemonPictureFour.setAttribute('position', '0 0 0');
           pokemonPictureOne.setAttribute('visible', 'false');
@@ -200,6 +216,7 @@ window.onload = () => {
           pokemonPictureThree.setAttribute('visible', 'false');
           pokemonTextThree.setAttribute('visible', 'false');
           pokemonPictureThree.setAttribute('position', '0 0 50');
+          speed = speedRandomFour;
         }
         fightText.setAttribute('value', 'Fight!');
         getAttackMoves();
@@ -219,18 +236,27 @@ window.onload = () => {
       attackMoveTwo = response.moves[10].move.name;
       attackMoveThree = response.moves[15].move.name;
       attackMoveFour = response.moves[20].move.name;
+      // adding a bit of speed for the starter because it's hard to beat other Pokemon otherwise
+      var speedStarter = response.stats[0].base_stat + 10;
+
+      console.log(speedStarter);
+      console.log(speed);
 
       attack1.setAttribute('visible', 'true');
       attack1.setAttribute('value', attackMoveOne);
+      attack1Plane.setAttribute('visible', 'true');
 
       attack2.setAttribute('visible', 'true');
       attack2.setAttribute('value', attackMoveTwo);
+      attack2Plane.setAttribute('visible', 'true');
 
       attack3.setAttribute('visible', 'true');
       attack3.setAttribute('value', attackMoveThree);
+      attack3Plane.setAttribute('visible', 'true');
 
       attack4.setAttribute('visible', 'true');
       attack4.setAttribute('value', attackMoveFour);
+      attack4Plane.setAttribute('visible', 'true');
     });
   }
 }
