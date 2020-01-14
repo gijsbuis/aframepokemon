@@ -25,15 +25,22 @@ window.onload = () => {
   const attack2Plane = document.getElementById('js--attack2-plane');
   const attack3Plane = document.getElementById('js--attack3-plane');
   const attack4Plane = document.getElementById('js--attack4-plane');
+  const attackOptions = document.getElementsByClassName('js--attack-option');
 
   let starterPokemon = null;
   let starterPokemonlowercase = null;
   var starterPokemonsArrayIndex = null;
   var speed = null;
+  var speedStarter = null;
   var speedRandomOne = null;
   var speedRandomTwo = null;
   var speedRandomThree = null;
   var speedRandomFour = null;
+  var nameOfRandom = null;
+  var nameRandomOne = null;
+  var nameRandomTwo = null;
+  var nameRandomThree = null;
+  var nameRandomFour = null;
 
   function addListeners() {
     for (var i = 0; i < starterPokemons.length; i++) {
@@ -119,6 +126,7 @@ window.onload = () => {
       pokemonPictureOne.setAttribute('visible', 'true');
       pokemonTextOne.setAttribute('value', response.name);
       speedRandomOne = response.stats[0].base_stat;
+      nameRandomOne = response.forms[0].name;
     });
   }
 
@@ -133,6 +141,7 @@ window.onload = () => {
       pokemonPictureTwo.setAttribute('visible', 'true');
       pokemonTextTwo.setAttribute('value', response.name);
       speedRandomTwo = response.stats[0].base_stat;
+      nameRandomTwo = response.forms[0].name;
     });
   }
 
@@ -147,6 +156,7 @@ window.onload = () => {
       pokemonPictureThree.setAttribute('visible', 'true');
       pokemonTextThree.setAttribute('value', response.name);
       speedRandomThree = response.stats[0].base_stat;
+      nameRandomThree = response.forms[0].name;
     });
   }
 
@@ -161,6 +171,7 @@ window.onload = () => {
       pokemonPictureFour.setAttribute('visible', 'true');
       pokemonTextFour.setAttribute('value', response.name);
       speedRandomFour = response.stats[0].base_stat;
+      nameRandomFour = response.forms[0].name;
     });
   }
 
@@ -181,8 +192,10 @@ window.onload = () => {
           pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureFour.setAttribute('position', '0 0 50');
           speed = speedRandomOne;
+          nameOfRandom = nameRandomOne;
         } else if (this.id == "js--pokemon-picture-two") {
-          pokemonPictureTwo.setAttribute('position', '0 0 0');
+          pokemonPictureTwo.setAttribute('animation', 'property: position; from: -1 0 0; to: 0 0.5 0; dur: 1000');
+          pokemonTextTwo.setAttribute('visible', 'false');
           pokemonPictureOne.setAttribute('visible', 'false');
           pokemonTextOne.setAttribute('visible', 'false');
           pokemonPictureOne.setAttribute('position', '0 0 50');
@@ -193,8 +206,10 @@ window.onload = () => {
           pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureFour.setAttribute('position', '0 0 50');
           speed = speedRandomTwo;
+          nameOfRandom = nameRandomTwo;
         } else if (this.id == "js--pokemon-picture-three") {
-          pokemonPictureThree.setAttribute('position', '0 0 0');
+          pokemonPictureThree.setAttribute('animation', 'property: position; from: 1 0 0; to: 0 0.5 0; dur: 1000');
+          pokemonTextThree.setAttribute('visible', 'false');
           pokemonPictureOne.setAttribute('visible', 'false');
           pokemonTextOne.setAttribute('visible', 'false');
           pokemonPictureOne.setAttribute('position', '0 0 50');
@@ -205,8 +220,10 @@ window.onload = () => {
           pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureFour.setAttribute('position', '0 0 50');
           speed = speedRandomThree;
+          nameOfRandom = nameRandomThree;
         } else if (this.id == "js--pokemon-picture-four") {
-          pokemonPictureFour.setAttribute('position', '0 0 0');
+          pokemonPictureFour.setAttribute('animation', 'property: position; from: 3 0 0; to: 0 0.5 0; dur: 1000');
+          pokemonTextFour.setAttribute('visible', 'false');
           pokemonPictureOne.setAttribute('visible', 'false');
           pokemonTextOne.setAttribute('visible', 'false');
           pokemonPictureOne.setAttribute('position', '0 0 50');
@@ -217,6 +234,7 @@ window.onload = () => {
           pokemonTextThree.setAttribute('visible', 'false');
           pokemonPictureThree.setAttribute('position', '0 0 50');
           speed = speedRandomFour;
+          nameOfRandom = nameRandomFour;
         }
         fightText.setAttribute('value', 'Fight!');
         getAttackMoves();
@@ -237,7 +255,7 @@ window.onload = () => {
       attackMoveThree = response.moves[15].move.name;
       attackMoveFour = response.moves[20].move.name;
       // adding a bit of speed for the starter because it's hard to beat other Pokemon otherwise
-      var speedStarter = response.stats[0].base_stat + 10;
+      speedStarter = response.stats[0].base_stat + 10;
 
       console.log(speedStarter);
       console.log(speed);
@@ -257,6 +275,41 @@ window.onload = () => {
       attack4.setAttribute('visible', 'true');
       attack4.setAttribute('value', attackMoveFour);
       attack4Plane.setAttribute('visible', 'true');
+
+      beginFight();
     });
+  }
+
+  function beginFight() {
+    console.log("Fight has begun!");
+    let firstAttacker;
+
+    setTimeout(function () {
+      console.log("Your Pokemon's speed is " + speedStarter);
+      console.log("Random Pokemon's speed is " + speed);
+
+
+      if (speedStarter >= speed) {
+        let fightTextBegin = starterPokemon + ' can attack first because their speed is higher!';
+        fightText.setAttribute('value', fightTextBegin);
+      } else {
+        let fightTextBegin = nameOfRandom + ' can attack first because their speed is higher!';
+        fightText.setAttribute('value', fightTextBegin);
+      }
+    }, 2000);
+    setTimeout(function () {
+      attack1Plane.addEventListener('click', function(event) {
+        console.log(starterPokemon + ' used ' + attack1.getAttribute('value'));
+        let fightTextInput = starterPokemon + ' used ' + attack1.getAttribute('value');
+        fightText.setAttribute('value', fightTextInput);
+      });
+    }, 3000);
+
+    // for (var i = 0; i < attackOptions.length; i++) {
+    //   attackOptions[i].addEventListener('click', function(event) {
+    //     console.log(attackOptions);
+    //     console.log(attackOptions[i]);
+    //   });
+    // }
   }
 }
