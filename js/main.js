@@ -41,6 +41,10 @@ window.onload = () => {
   var nameRandomTwo = null;
   var nameRandomThree = null;
   var nameRandomFour = null;
+  var attackRandomOne = null;
+  var attackRandomTwo = null;
+  var attackRandomThree = null;
+  var attackRandomFour = null;
 
   function addListeners() {
     for (var i = 0; i < starterPokemons.length; i++) {
@@ -127,6 +131,8 @@ window.onload = () => {
       pokemonTextOne.setAttribute('value', response.name);
       speedRandomOne = response.stats[0].base_stat;
       nameRandomOne = response.forms[0].name;
+      attackRandomOne = response.moves[12].move.name;
+      console.log(attackRandomOne);
     });
   }
 
@@ -282,12 +288,10 @@ window.onload = () => {
 
   function beginFight() {
     console.log("Fight has begun!");
-    let firstAttacker;
 
     setTimeout(function () {
       console.log("Your Pokemon's speed is " + speedStarter);
       console.log("Random Pokemon's speed is " + speed);
-
 
       if (speedStarter >= speed) {
         let fightTextBegin = starterPokemon + ' can attack first because their speed is higher!';
@@ -299,10 +303,15 @@ window.onload = () => {
     }, 2000);
     setTimeout(function () {
       attack1Plane.addEventListener('click', function(event) {
-        console.log(starterPokemon + ' used ' + attack1.getAttribute('value'));
-        let fightTextInput = starterPokemon + ' used ' + attack1.getAttribute('value');
-        fightText.setAttribute('value', fightTextInput);
+        if (speedStarter >= speed) {
+          let fightTextInput = starterPokemon + ' used ' + attack1.getAttribute('value');
+          fightText.setAttribute('value', fightTextInput);
+        } else {
+          let fightTextInput = nameOfRandom + ' used ' + attackRandomOne;
+          fightText.setAttribute('value', fightTextInput);
+        }
       });
+
     }, 3000);
 
     // for (var i = 0; i < attackOptions.length; i++) {
