@@ -45,6 +45,9 @@ window.onload = () => {
   var attackRandomTwo = null;
   var attackRandomThree = null;
   var attackRandomFour = null;
+  var randomPokemonArrayIndex = null;
+  var chosenAttack = null;
+  var attackRandom = null;
 
   function addListeners() {
     for (var i = 0; i < starterPokemons.length; i++) {
@@ -132,7 +135,6 @@ window.onload = () => {
       speedRandomOne = response.stats[0].base_stat;
       nameRandomOne = response.forms[0].name;
       attackRandomOne = response.moves[12].move.name;
-      console.log(attackRandomOne);
     });
   }
 
@@ -148,6 +150,7 @@ window.onload = () => {
       pokemonTextTwo.setAttribute('value', response.name);
       speedRandomTwo = response.stats[0].base_stat;
       nameRandomTwo = response.forms[0].name;
+      attackRandomTwo = response.moves[12].move.name;
     });
   }
 
@@ -163,6 +166,7 @@ window.onload = () => {
       pokemonTextThree.setAttribute('value', response.name);
       speedRandomThree = response.stats[0].base_stat;
       nameRandomThree = response.forms[0].name;
+      attackRandomThree = response.moves[12].move.name;
     });
   }
 
@@ -178,6 +182,7 @@ window.onload = () => {
       pokemonTextFour.setAttribute('value', response.name);
       speedRandomFour = response.stats[0].base_stat;
       nameRandomFour = response.forms[0].name;
+      attackRandomFour = response.moves[12].move.name;
     });
   }
 
@@ -199,6 +204,8 @@ window.onload = () => {
           pokemonPictureFour.setAttribute('position', '0 0 50');
           speed = speedRandomOne;
           nameOfRandom = nameRandomOne;
+          randomPokemonArrayIndex = 0;
+          attackRandom = 1;
         } else if (this.id == "js--pokemon-picture-two") {
           pokemonPictureTwo.setAttribute('animation', 'property: position; from: -1 0 0; to: 0 0.5 0; dur: 1000');
           pokemonTextTwo.setAttribute('visible', 'false');
@@ -213,6 +220,8 @@ window.onload = () => {
           pokemonPictureFour.setAttribute('position', '0 0 50');
           speed = speedRandomTwo;
           nameOfRandom = nameRandomTwo;
+          randomPokemonArrayIndex = 1;
+          attackRandom = 2;
         } else if (this.id == "js--pokemon-picture-three") {
           pokemonPictureThree.setAttribute('animation', 'property: position; from: 1 0 0; to: 0 0.5 0; dur: 1000');
           pokemonTextThree.setAttribute('visible', 'false');
@@ -227,6 +236,8 @@ window.onload = () => {
           pokemonPictureFour.setAttribute('position', '0 0 50');
           speed = speedRandomThree;
           nameOfRandom = nameRandomThree;
+          randomPokemonArrayIndex = 2;
+          attackRandom = 3;
         } else if (this.id == "js--pokemon-picture-four") {
           pokemonPictureFour.setAttribute('animation', 'property: position; from: 3 0 0; to: 0 0.5 0; dur: 1000');
           pokemonTextFour.setAttribute('visible', 'false');
@@ -241,6 +252,8 @@ window.onload = () => {
           pokemonPictureThree.setAttribute('position', '0 0 50');
           speed = speedRandomFour;
           nameOfRandom = nameRandomFour;
+          randomPokemonArrayIndex = 3;
+          attackRandom = 4;
         }
         fightText.setAttribute('value', 'Fight!');
         getAttackMoves();
@@ -301,24 +314,142 @@ window.onload = () => {
         fightText.setAttribute('value', fightTextBegin);
       }
     }, 2000);
-    setTimeout(function () {
-      attack1Plane.addEventListener('click', function(event) {
-        if (speedStarter >= speed) {
-          let fightTextInput = starterPokemon + ' used ' + attack1.getAttribute('value');
-          fightText.setAttribute('value', fightTextInput);
-        } else {
-          let fightTextInput = nameOfRandom + ' used ' + attackRandomOne;
-          fightText.setAttribute('value', fightTextInput);
-        }
-      });
-
-    }, 3000);
-
-    // for (var i = 0; i < attackOptions.length; i++) {
-    //   attackOptions[i].addEventListener('click', function(event) {
-    //     console.log(attackOptions);
-    //     console.log(attackOptions[i]);
-    //   });
-    // }
+    attack1Plane.addEventListener('click', function(event) {
+      chosenAttack = 1;
+      if (speedStarter >= speed) {
+        starterPokemonAttack(1);
+      } else {
+        randomPokemonAttack(1);
+      }
+    });
+    attack2Plane.addEventListener('click', function(event) {
+      chosenAttack = 2;
+      if (speedStarter >= speed) {
+        starterPokemonAttack(2);
+      } else {
+        randomPokemonAttack(2);
+      }
+    });
+    attack3Plane.addEventListener('click', function(event) {
+      chosenAttack = 3;
+      if (speedStarter >= speed) {
+        starterPokemonAttack(3);
+      } else {
+        randomPokemonAttack(3);
+      }
+    });
+    attack4Plane.addEventListener('click', function(event) {
+      chosenAttack = 4;
+      if (speedStarter >= speed) {
+        starterPokemonAttack(4);
+      } else {
+        randomPokemonAttack(4);
+      }
+    });
   }
+
+  function starterPokemonAttack(attackNumber) {
+    if (attackNumber == 1) {
+      let fightTextInput = starterPokemon + ' used ' + attack1.getAttribute('value');
+      fightText.setAttribute('value', fightTextInput);
+      shakeRandom();
+    } else if (attackNumber == 2) {
+      let fightTextInput = starterPokemon + ' used ' + attack2.getAttribute('value');
+      fightText.setAttribute('value', fightTextInput);
+      shakeRandom();
+    } else if (attackNumber == 3) {
+      let fightTextInput = starterPokemon + ' used ' + attack3.getAttribute('value');
+      fightText.setAttribute('value', fightTextInput);
+      shakeRandom();
+    } else if (attackNumber == 4) {
+      let fightTextInput = starterPokemon + ' used ' + attack4.getAttribute('value');
+      fightText.setAttribute('value', fightTextInput);
+      shakeRandom();
+    }
+  }
+
+  function randomPokemonAttack(attackNumber) {
+    if (attackNumber == 1) {
+      let fightTextInput = nameOfRandom + ' used ' + attackRandomOne;
+      fightText.setAttribute('value', fightTextInput);
+      shakeStarter();
+    } else if (attackNumber == 2) {
+      let fightTextInput = nameOfRandom + ' used ' + attackRandomTwo;
+      fightText.setAttribute('value', fightTextInput);
+      shakeStarter();
+    } else if (attackNumber == 3) {
+      let fightTextInput = nameOfRandom + ' used ' + attackRandomThree;
+      fightText.setAttribute('value', fightTextInput);
+      shakeStarter();
+    } else if (attackNumber == 4) {
+      let fightTextInput = nameOfRandom + ' used ' + attackRandomFour;
+      fightText.setAttribute('value', fightTextInput);
+      shakeStarter();
+    }
+  }
+
+  function shakeRandom() {
+    wildPokemons[randomPokemonArrayIndex].setAttribute('animation', 'property: position; from: 0 0.5 0; to: 0.1 0.5 0; dur: 100; dir: alternate; loop: 16;');
+    setTimeout(function () {
+      wildPokemons[randomPokemonArrayIndex].setAttribute('animation', 'property: position; from: 0 0.5 0; to: 0.1 -3 0; dir: normal; loop: false; dur: 1000');
+    }, 3000);
+    fightText.setAttribute('value', 'You won!');
+    // getPowerStarter(chosenAttack);
+    // getPowerRandom(attackRandom);
+  }
+
+  function shakeStarter() {
+    starterPokemons[starterPokemonsArrayIndex].setAttribute('animation', 'property: position; from: -3 -0.25 -29; to: -3.1 -0.25 -29; dur: 100; dir: alternate; loop: 16;');
+    setTimeout(function () {
+      starterPokemons[starterPokemonsArrayIndex].setAttribute('animation', 'property: position; from: -3 -0.25 -29; to: -3 -3 -29; dur: 1000; dir: normal; loop: false;');
+    }, 3000);
+    fightText.setAttribute('value', 'You lost!');
+    // getPowerStarter(chosenAttack);
+    // getPowerRandom(attackRandom);
+  }
+
+  // function getPowerStarter(attack) {
+  //   if (attack == 1) {
+  //     sub_URL = attackMoveOne;
+  //   } else if (attack == 2) {
+  //     sub_URL = attackMoveTwo;
+  //   } else if (attack == 3) {
+  //     console.log(attackMoveThree);
+  //     sub_URL = attackMoveThree;
+  //   } else if (attack == 4) {
+  //     sub_URL = attackMoveFour;
+  //   }
+  //
+  //   const BASE_URL = "https://pokeapi.co/api/v2/move/";
+  //   fetch(BASE_URL + sub_URL)
+  //   .then( (data) => {
+  //     return data.json();
+  //   })
+  //   .then( (response) => {
+  //     console.log(response.name);
+  //     console.log(response.power);
+  //   });
+  // }
+  //
+  // function getPowerRandom(attack) {
+  //   if (attack == 1) {
+  //     sub_URL = attackRandomOne;
+  //   } else if (attack == 2) {
+  //     sub_URL = attackRandomTwo;
+  //   } else if (attack == 3) {
+  //     sub_URL = attackRandomThree;
+  //   } else if (attack == 4) {
+  //     sub_URL = attackRandomFour;
+  //   }
+  //
+  //   const BASE_URL = "https://pokeapi.co/api/v2/move/";
+  //   fetch(BASE_URL + sub_URL)
+  //   .then( (data) => {
+  //     return data.json();
+  //   })
+  //   .then( (response) => {
+  //     console.log(response.name);
+  //     console.log(response.power);
+  //   });
+  // }
 }
